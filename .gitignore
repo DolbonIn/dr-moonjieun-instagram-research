@@ -1,0 +1,6 @@
+raw/
+sheets/
+book/
+__pycache__/
+*.mp4
+*.wav

@@ -1,0 +1,536 @@
+{
+ "account": "dr.moonjieun_",
+ "fetched": "2026-10-02T02:54:46.751Z",
+ "followers": 26118,
+ "posts_collected": 23,
+ "reels": 22,
+ "median_plays": 208155.5,
+ "mean_plays": 317564,
+ "min_plays": 61527,
+ "max_plays": 939540,
+ "total_plays": 6986403,
+ "median_over_followers": 8.0,
+ "first_reel": "2026-06-03 21:01",
+ "last_reel": "2026-10-01 20:35",
+ "reels_per_week": 1.28,
+ "gaps_days": [
+  26.0,
+  10.0,
+  9.0,
+  8.0,
+  7.0
+ ],
+ "likes_hidden": 9,
+ "like_rate_median_pct": 0.62,
+ "comments_per_10k_median": 1.7000000000000002,
+ "duration_median": 31.35,
+ "chars_per_sec_median": 7.1,
+ "upload_hours": [
+  19,
+  20,
+  21
+ ],
+ "hashtags_median": 4.0,
+ "cap_len_median": 46.0,
+ "by_topic": {
+  "학벌·공부": {
+   "n": 5,
+   "median_multiple": 2.68,
+   "mean_multiple": 2.62,
+   "min": 0.63,
+   "max": 4.47,
+   "codes": [
+    "DdTm4AVNepa",
+    "DbLEN_MTuHQ",
+    "DaIKmAcxiek",
+    "DZXPvvpP0dH",
+    "DZH3aSRB6Kf"
+   ]
+  },
+  "시술 경고·소신": {
+   "n": 4,
+   "median_multiple": 2.04,
+   "mean_multiple": 2.22,
+   "min": 0.3,
+   "max": 4.51,
+   "codes": [
+    "Dc_D9k0p8sS",
+    "DcD0gYQzlIu",
+    "DbS41pGzvmO",
+    "DaAgJgYh8mu"
+   ]
+  },
+  "얼굴 분석(연예인)": {
+   "n": 2,
+   "median_multiple": 1.7,
+   "mean_multiple": 1.7,
+   "min": 1.12,
+   "max": 2.27,
+   "codes": [
+    "DdtZvzNBCkt",
+    "DdEJ3F9Bci7"
+   ]
+  },
+  "일상·취향": {
+   "n": 7,
+   "median_multiple": 0.72,
+   "mean_multiple": 0.72,
+   "min": 0.34,
+   "max": 1.06,
+   "codes": [
+    "Dd80M5qN0kj",
+    "DctBxdtzAA9",
+    "Dca-MrFBhX1",
+    "DcLi-FyzLyS",
+    "DbslYbSzA3O",
+    "DZ4uc9OPPGq",
+    "DZpSg_iBRW4"
+   ]
+  },
+  "시술 추천·가이드": {
+   "n": 4,
+   "median_multiple": 0.7,
+   "mean_multiple": 0.78,
+   "min": 0.4,
+   "max": 1.33,
+   "codes": [
+    "DdoOaCCt-_9",
+    "DdJU50ftTNh",
+    "DcQsim1TsK9",
+    "DZPnPpvvoT4"
+   ]
+  }
+ },
+ "by_format": {
+  "인터뷰": {
+   "n": 5,
+   "median_multiple": 2.68,
+   "mean_multiple": 2.26,
+   "min": 0.63,
+   "max": 4.47,
+   "codes": [
+    "DbslYbSzA3O",
+    "DbLEN_MTuHQ",
+    "DaIKmAcxiek",
+    "DZXPvvpP0dH",
+    "DZH3aSRB6Kf"
+   ]
+  },
+  "목록 낭독": {
+   "n": 1,
+   "median_multiple": 1.33,
+   "mean_multiple": 1.33,
+   "min": 1.33,
+   "max": 1.33,
+   "codes": [
+    "DdJU50ftTNh"
+   ]
+  },
+  "독백": {
+   "n": 16,
+   "median_multiple": 0.88,
+   "mean_multiple": 1.31,
+   "min": 0.3,
+   "max": 4.51,
+   "codes": [
+    "Dd80M5qN0kj",
+    "DdtZvzNBCkt",
+    "DdoOaCCt-_9",
+    "DdTm4AVNepa",
+    "DdEJ3F9Bci7",
+    "Dc_D9k0p8sS",
+    "DctBxdtzAA9",
+    "Dca-MrFBhX1",
+    "DcQsim1TsK9",
+    "DcLi-FyzLyS",
+    "DcD0gYQzlIu",
+    "DbS41pGzvmO",
+    "DaAgJgYh8mu",
+    "DZ4uc9OPPGq",
+    "DZpSg_iBRW4",
+    "DZPnPpvvoT4"
+   ]
+  }
+ },
+ "by_hook": {
+  "3 Nobody Tells You": {
+   "n": 1,
+   "median_multiple": 4.51,
+   "mean_multiple": 4.51,
+   "min": 4.51,
+   "max": 4.51,
+   "codes": [
+    "DaAgJgYh8mu"
+   ]
+  },
+  "22 Contrarian Flip": {
+   "n": 2,
+   "median_multiple": 2.84,
+   "mean_multiple": 2.84,
+   "min": 2.56,
+   "max": 3.13,
+   "codes": [
+    "DdTm4AVNepa",
+    "DbS41pGzvmO"
+   ]
+  },
+  "16 The Verbatim Question": {
+   "n": 6,
+   "median_multiple": 1.71,
+   "mean_multiple": 1.94,
+   "min": 0.34,
+   "max": 4.47,
+   "codes": [
+    "Dd80M5qN0kj",
+    "DbslYbSzA3O",
+    "DbLEN_MTuHQ",
+    "DaIKmAcxiek",
+    "DZXPvvpP0dH",
+    "DZH3aSRB6Kf"
+   ]
+  },
+  "17 Head To Head": {
+   "n": 2,
+   "median_multiple": 1.7,
+   "mean_multiple": 1.7,
+   "min": 1.12,
+   "max": 2.27,
+   "codes": [
+    "DdtZvzNBCkt",
+    "DdEJ3F9Bci7"
+   ]
+  },
+  "9 The Steal": {
+   "n": 1,
+   "median_multiple": 1.33,
+   "mean_multiple": 1.33,
+   "min": 1.33,
+   "max": 1.33,
+   "codes": [
+    "DdJU50ftTNh"
+   ]
+  },
+  "24 The Reveal": {
+   "n": 1,
+   "median_multiple": 1.06,
+   "mean_multiple": 1.06,
+   "min": 1.06,
+   "max": 1.06,
+   "codes": [
+    "DcLi-FyzLyS"
+   ]
+  },
+  "12 The Objection": {
+   "n": 1,
+   "median_multiple": 0.95,
+   "mean_multiple": 0.95,
+   "min": 0.95,
+   "max": 0.95,
+   "codes": [
+    "DcD0gYQzlIu"
+   ]
+  },
+  "8 Insider Leak": {
+   "n": 1,
+   "median_multiple": 0.72,
+   "mean_multiple": 0.72,
+   "min": 0.72,
+   "max": 0.72,
+   "codes": [
+    "DZpSg_iBRW4"
+   ]
+  },
+  "11 Numbered With A Favourite": {
+   "n": 5,
+   "median_multiple": 0.65,
+   "mean_multiple": 0.71,
+   "min": 0.48,
+   "max": 1.05,
+   "codes": [
+    "DdoOaCCt-_9",
+    "DctBxdtzAA9",
+    "Dca-MrFBhX1",
+    "DZ4uc9OPPGq",
+    "DZPnPpvvoT4"
+   ]
+  },
+  "10 If This, Then Watch": {
+   "n": 1,
+   "median_multiple": 0.4,
+   "mean_multiple": 0.4,
+   "min": 0.4,
+   "max": 0.4,
+   "codes": [
+    "DcQsim1TsK9"
+   ]
+  },
+  "2 Negative Command": {
+   "n": 1,
+   "median_multiple": 0.3,
+   "mean_multiple": 0.3,
+   "min": 0.3,
+   "max": 0.3,
+   "codes": [
+    "Dc_D9k0p8sS"
+   ]
+  }
+ },
+ "by_duration": {
+  ">40s": {
+   "n": 1,
+   "median_multiple": 2.68,
+   "mean_multiple": 2.68,
+   "min": 2.68,
+   "max": 2.68,
+   "codes": [
+    "DaIKmAcxiek"
+   ]
+  },
+  "<15s": {
+   "n": 1,
+   "median_multiple": 1.33,
+   "mean_multiple": 1.33,
+   "min": 1.33,
+   "max": 1.33,
+   "codes": [
+    "DdJU50ftTNh"
+   ]
+  },
+  "30-40s": {
+   "n": 13,
+   "median_multiple": 1.06,
+   "mean_multiple": 1.71,
+   "min": 0.3,
+   "max": 4.51,
+   "codes": [
+    "Dd80M5qN0kj",
+    "DdtZvzNBCkt",
+    "DdoOaCCt-_9",
+    "DdEJ3F9Bci7",
+    "Dc_D9k0p8sS",
+    "DctBxdtzAA9",
+    "DcQsim1TsK9",
+    "DcLi-FyzLyS",
+    "DbS41pGzvmO",
+    "DaAgJgYh8mu",
+    "DZXPvvpP0dH",
+    "DZPnPpvvoT4",
+    "DZH3aSRB6Kf"
+   ]
+  },
+  "15-30s": {
+   "n": 7,
+   "median_multiple": 0.73,
+   "mean_multiple": 1.04,
+   "min": 0.63,
+   "max": 2.56,
+   "codes": [
+    "DdTm4AVNepa",
+    "Dca-MrFBhX1",
+    "DcD0gYQzlIu",
+    "DbslYbSzA3O",
+    "DbLEN_MTuHQ",
+    "DZ4uc9OPPGq",
+    "DZpSg_iBRW4"
+   ]
+  }
+ },
+ "by_dow": {
+  "일": {
+   "n": 1,
+   "median_multiple": 2.68,
+   "mean_multiple": 2.68,
+   "min": 2.68,
+   "max": 2.68,
+   "codes": [
+    "DaIKmAcxiek"
+   ]
+  },
+  "수": {
+   "n": 3,
+   "median_multiple": 2.27,
+   "mean_multiple": 1.95,
+   "min": 0.81,
+   "max": 2.77,
+   "codes": [
+    "DdoOaCCt-_9",
+    "DdEJ3F9Bci7",
+    "DZH3aSRB6Kf"
+   ]
+  },
+  "화": {
+   "n": 4,
+   "median_multiple": 1.81,
+   "mean_multiple": 2.2,
+   "min": 0.72,
+   "max": 4.47,
+   "codes": [
+    "DdTm4AVNepa",
+    "DcLi-FyzLyS",
+    "DZpSg_iBRW4",
+    "DZXPvvpP0dH"
+   ]
+  },
+  "금": {
+   "n": 3,
+   "median_multiple": 1.12,
+   "mean_multiple": 1.03,
+   "min": 0.63,
+   "max": 1.33,
+   "codes": [
+    "DdtZvzNBCkt",
+    "DdJU50ftTNh",
+    "DbLEN_MTuHQ"
+   ]
+  },
+  "토": {
+   "n": 2,
+   "median_multiple": 0.76,
+   "mean_multiple": 0.76,
+   "min": 0.58,
+   "max": 0.95,
+   "codes": [
+    "DcD0gYQzlIu",
+    "DZPnPpvvoT4"
+   ]
+  },
+  "월": {
+   "n": 5,
+   "median_multiple": 0.65,
+   "mean_multiple": 1.12,
+   "min": 0.3,
+   "max": 3.13,
+   "codes": [
+    "Dc_D9k0p8sS",
+    "DctBxdtzAA9",
+    "Dca-MrFBhX1",
+    "DbS41pGzvmO",
+    "DZ4uc9OPPGq"
+   ]
+  },
+  "목": {
+   "n": 4,
+   "median_multiple": 0.56,
+   "mean_multiple": 1.49,
+   "min": 0.34,
+   "max": 4.51,
+   "codes": [
+    "Dd80M5qN0kj",
+    "DcQsim1TsK9",
+    "DbslYbSzA3O",
+    "DaAgJgYh8mu"
+   ]
+  }
+ },
+ "by_month": {
+  "2026-06": {
+   "n": 7,
+   "median_multiple": 2.68,
+   "mean_multiple": 2.34,
+   "min": 0.58,
+   "max": 4.51,
+   "codes": [
+    "DaIKmAcxiek",
+    "DaAgJgYh8mu",
+    "DZ4uc9OPPGq",
+    "DZpSg_iBRW4",
+    "DZXPvvpP0dH",
+    "DZPnPpvvoT4",
+    "DZH3aSRB6Kf"
+   ]
+  },
+  "2026-07": {
+   "n": 2,
+   "median_multiple": 1.88,
+   "mean_multiple": 1.88,
+   "min": 0.63,
+   "max": 3.13,
+   "codes": [
+    "DbS41pGzvmO",
+    "DbLEN_MTuHQ"
+   ]
+  },
+  "2026-09": {
+   "n": 6,
+   "median_multiple": 1.23,
+   "mean_multiple": 1.4,
+   "min": 0.3,
+   "max": 2.56,
+   "codes": [
+    "DdtZvzNBCkt",
+    "DdoOaCCt-_9",
+    "DdTm4AVNepa",
+    "DdJU50ftTNh",
+    "DdEJ3F9Bci7",
+    "Dc_D9k0p8sS"
+   ]
+  },
+  "2026-08": {
+   "n": 6,
+   "median_multiple": 0.84,
+   "mean_multiple": 0.78,
+   "min": 0.4,
+   "max": 1.06,
+   "codes": [
+    "DctBxdtzAA9",
+    "Dca-MrFBhX1",
+    "DcQsim1TsK9",
+    "DcLi-FyzLyS",
+    "DcD0gYQzlIu",
+    "DbslYbSzA3O"
+   ]
+  },
+  "2026-10": {
+   "n": 1,
+   "median_multiple": 0.34,
+   "mean_multiple": 0.34,
+   "min": 0.34,
+   "max": 0.34,
+   "codes": [
+    "Dd80M5qN0kj"
+   ]
+  }
+ },
+ "by_like_hidden": {
+  "shown": {
+   "n": 13,
+   "median_multiple": 1.12,
+   "mean_multiple": 1.8,
+   "min": 0.4,
+   "max": 4.47,
+   "codes": [
+    "DdtZvzNBCkt",
+    "DdTm4AVNepa",
+    "DdEJ3F9Bci7",
+    "Dca-MrFBhX1",
+    "DcQsim1TsK9",
+    "DcD0gYQzlIu",
+    "DbslYbSzA3O",
+    "DbS41pGzvmO",
+    "DbLEN_MTuHQ",
+    "DaIKmAcxiek",
+    "DZXPvvpP0dH",
+    "DZPnPpvvoT4",
+    "DZH3aSRB6Kf"
+   ]
+  },
+  "hidden": {
+   "n": 9,
+   "median_multiple": 0.72,
+   "mean_multiple": 1.13,
+   "min": 0.3,
+   "max": 4.51,
+   "codes": [
+    "Dd80M5qN0kj",
+    "DdoOaCCt-_9",
+    "DdJU50ftTNh",
+    "Dc_D9k0p8sS",
+    "DctBxdtzAA9",
+    "DcLi-FyzLyS",
+    "DaAgJgYh8mu",
+    "DZ4uc9OPPGq",
+    "DZpSg_iBRW4"
+   ]
+  }
+ }
+}

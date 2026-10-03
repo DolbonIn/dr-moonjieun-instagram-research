@@ -1,0 +1,75 @@
+<section class="cover">
+ <div class="kicker">내부 분석용 · {fetched} 수집</div>
+ <h1>릴스 촬영·편집 대본집</h1>
+ <div class="sub">@dr.moonjieun_ 릴스 {n}개 전체 — 샷 단위 대본, 화면 자막, 삽입 그래픽, 컷·확대·소리 측정</div>
+ <div class="grid">{covergrid}</div>
+ <div class="facts">
+  <div><b>{n}개</b><span>릴스(이 계정의 영상 전부)</span></div>
+  <div><b>{plays_med}</b><span>조회수 중앙값(팔로워 {followers})</span></div>
+  <div><b>{total_cuts}컷</b><span>22편 합계 · 편당 중앙값 {cuts_med}컷</span></div>
+  <div><b>{asl_med}초</b><span>평균 샷 길이(중앙값)</span></div>
+ </div>
+ <div class="box"><b>범위.</b> 프로필에 표시된 게시물은 38개이고, 그중 영상은 릴스 {n}개가 전부입니다(릴스 탭을 끝까지 확인). 이 책은 그 {n}개를 모두 다룹니다. 나머지 16개는 사진·캐러셀이라 대본이 없고, 확인된 1개만 3부에 실었습니다. 15개는 로그인해야 목록이 보여 넣지 못했습니다.</div>
+ <div class="cols">
+  <div><h4>구성</h4>
+   <ul><li><b>1부</b> {n}개에 공통된 촬영·편집 문법과 규격</li><li><b>2부</b> 릴스별 페이지(게시 순). 숫자, 촬영, 편집, 컷 리듬, 샷 단위 편집 대본</li><li><b>3부</b> 사진 게시물, 측정 방법과 한계</li></ul></div>
+  <div><h4>편집 대본 읽는 법</h4>
+   <ul><li><b>컷</b> 그 샷이 어떤 컷으로 시작하는지. 확대 +6%는 직전 샷보다 6% 당겨 붙였다는 뜻</li><li><b>배율</b> 그 릴스 첫 샷을 100%로 본 화면 크기</li><li><b>대사</b> 말한 그대로, <b>화면 자막</b> 화면에 적힌 그대로(▸는 자막이 바뀌는 지점)</li></ul></div>
+ </div>
+</section>
+
+<section>
+<h1>1부. {n}개에 공통된 촬영·편집 문법</h1>
+<p class="lead">22편은 한 가지 틀로 만들어졌습니다. 한자리에 서거나 앉아 30초 안팎을 말하고, 말의 구마다 잘라 붙이면서 화면이 바뀌는 지점의 절반 이상에서 배율을 {zoom_med}% 안팎 당기거나 풉니다. 처음 3초는 2줄 제목 카드가 머리 위에 떠 있고, 가슴 높이에는 1초마다 바뀌는 자막이, 그 아래에는 말에 맞춰 2초씩 뜨는 그림이 있습니다.</p>
+
+<h3>숫자로 본 한 편</h3>
+<table class="spec">
+ <tr><th>길이</th><td>중앙값 <b>{dur_med}초</b> ({dur_min}~{dur_max}초). 9:16 세로, 30fps</td></tr>
+ <tr><th>컷 수</th><td>편당 중앙값 <b>{cuts_med}컷</b> ({cuts_min}~{cuts_max}컷). 평균 샷 길이 <b>{asl_med}초</b> ({asl_min}~{asl_max}초)</td></tr>
+ <tr><th>컷의 종류</th><td>확대·축소를 동반한 컷 <b>{zoom_share}%</b> · 같은 구도 점프컷 {jump_share}% · 다른 화면으로 넘어가는 전환 {scene_share}% (22편 {total_cuts}컷 기준)</td></tr>
+ <tr><th>확대·축소 폭</th><td>한 번에 중앙값 <b>{zoom_med}%</b>, 열 번 중 아홉 번은 {zoom_p90}% 이하. 확대가 {zoom_in_share}%, 축소가 나머지. 확대를 세 번 넘게 이어 가는 계단식 줌인이 {stair_reels}편에 있음</td></tr>
+ <tr><th>화면 자막</th><td>편당 중앙값 <b>{subs_med}개</b>, <b>{subs_int}초</b>마다 교체. 위치는 화면 위에서 {sub_cy}% 지점, 글자 높이는 화면의 {sub_h}%</td></tr>
+ <tr><th>삽입 그래픽</th><td>편당 중앙값 <b>{gfx_med}개</b>(22편 합계 {gfx_total}개). {gfx_first}편은 첫 1초 안에 그래픽이 뜸</td></tr>
+ <tr><th>말</th><td><b>{cps_med}자/초</b>. 0.0초에 말이 시작되고, 마지막 단어 뒤 {tail_med}초(중앙값)에 끝남. 말 사이 0.3초 넘는 공백은 22편을 합쳐 {gaps_total}번</td></tr>
+ <tr><th>소리</th><td>22편 모두 <b>{lufs_min}~{lufs_max} LUFS</b>. 배경 음악은 있어 보이는 것 {bgm_likely}편, 불분명 {bgm_unclear}편, 없음 {bgm_none}편. 있더라도 말소리보다 20dB 안팎 낮음</td></tr>
+ <tr><th>카메라</th><td>고정(삼각대) <b>{tripod}편</b>, 손에 든 카메라 {handheld}편</td></tr>
+ <tr><th>인물 크기</th><td>얼굴 중심이 화면 위에서 <b>{face_cy}%</b> 지점, 얼굴 높이가 화면의 <b>{face_h}%</b>(편에 따라 {face_h_lo}~{face_h_hi}%)</td></tr>
+</table>
+
+<h3>화면 배치</h3>
+<div class="cols3">
+ <div class="layout">
+  <svg viewBox="0 0 150 262" xmlns="http://www.w3.org/2000/svg">
+   <rect x="7" y="7" width="135" height="240" rx="6" fill="#f1f3f5" stroke="#1c2126" stroke-width="1.2"/>
+   <rect x="22" y="33.4" width="105" height="43.2" rx="2" fill="#c5e4ea" stroke="#0b7285" stroke-width="0.8" stroke-dasharray="3 2"/>
+   <rect x="34" y="41" width="81" height="9" fill="#0b7285" opacity="0.35"/><rect x="28" y="57" width="93" height="11" fill="#0b7285"/>
+   <ellipse cx="74.5" cy="103" rx="17" ry="20.4" fill="#ffd8a8" stroke="#e8590c" stroke-width="0.8"/>
+   <path d="M 30 247 C 30 160 50 133 74.5 133 C 99 133 119 160 119 247 Z" fill="#dee2e6"/>
+   <rect x="37" y="147.8" width="75" height="6.5" rx="1" fill="#1c2126"/>
+   <rect x="45" y="160" width="59" height="50" rx="2" fill="#ffe8cc" stroke="#f08c00" stroke-width="0.8" stroke-dasharray="3 2"/>
+   <rect x="7" y="211" width="135" height="36" fill="#adb5bd" opacity="0.45"/>
+   <rect x="126" y="150" width="16" height="61" fill="#adb5bd" opacity="0.45"/>
+   <g font-family="Noto Sans KR, sans-serif" font-weight="800" font-size="9" fill="#fff" text-anchor="middle">
+    <circle cx="15" cy="55" r="6.5" fill="#0b7285"/><text x="15" y="58.2">1</text>
+    <circle cx="48" cy="103" r="6.5" fill="#e8590c"/><text x="48" y="106.2">2</text>
+    <circle cx="27" cy="151" r="6.5" fill="#1c2126"/><text x="27" y="154.2">3</text>
+    <circle cx="36" cy="185" r="6.5" fill="#f08c00"/><text x="36" y="188.2">4</text>
+    <circle cx="74.5" cy="229" r="6.5" fill="#495057"/><text x="74.5" y="232.2">5</text>
+   </g>
+  </svg>
+ </div>
+ <table class="spec">
+  <tr><th>① 제목 카드</th><td>화면 위에서 11~29% 구간, 2줄, 가운데 정렬. 첫 프레임부터 떠 있다가 <b>{hold_med}초</b>쯤({hold_min}~{hold_max}초) 첫 컷과 함께 사라짐. 끝까지 두는 것은 10초짜리 목록 릴스 {hold_all}편뿐</td></tr>
+  <tr><th>② 얼굴</th><td>얼굴 중심이 위에서 {face_cy}% 지점. 머리 위를 비워 ①의 자리를 미리 확보해서 찍음</td></tr>
+  <tr><th>③ 화면 자막</th><td>위에서 {sub_cy}% 지점(가슴 높이), 한 줄, 흰 글씨에 어두운 테두리. 글자 높이는 화면의 {sub_h}%(1080×1920에서 약 50px)</td></tr>
+  <tr><th>④ 삽입 그래픽</th><td>자막 바로 아래 가슴~배 위치. 배경을 지운 장비·제품 사진, 도식, 로고, 캡처가 말에 맞춰 떴다 사라짐</td></tr>
+  <tr><th>⑤ 비워 두는 곳</th><td>아래 15%와 오른쪽 아래는 인스타그램 캡션·버튼에 가려지는 영역. 자막을 맨 아래가 아니라 가슴에 두는 이유</td></tr>
+ </table>
+</div>
+
+{part1_body}
+
+<h3>릴스별 요약 (게시 순)</h3>
+<table class="toc"><thead><tr><th>#</th><th>게시</th><th>제목 카드</th><th class="r">조회수</th><th class="r">배수</th><th class="r">길이</th><th class="r">컷</th><th class="r">샷 길이</th><th class="r">줌 컷</th><th class="r">자막</th><th class="r">그래픽</th><th>카메라</th></tr></thead><tbody>{toc}</tbody></table>
+<p class="note">배수 = 조회수 ÷ 계정 중앙값. 샷 길이 = 평균. 줌 컷 = 확대·축소를 동반한 컷 수. 카메라: 고정 = 삼각대, 손 = 손에 든 카메라.</p>
+</section>
