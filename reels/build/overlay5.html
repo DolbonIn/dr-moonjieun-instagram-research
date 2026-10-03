@@ -38,7 +38,7 @@ const CUT=21.18, DEL=0.98, END=53.61;
 const M=t=>t<CUT?t:(t<CUT+DEL?CUT:Math.min(END,+(t-DEL).toFixed(3)));
 const OLD_END=99;
 const HEAD0=[
- [0,2.8,'<div class="tl hollow">결혼식 앞두고</div><div class="tl neon">기간별 추천 시술</div>'],
+ [0,2.8,'<div style="margin-top:-12px"><div class="tl hollow">결혼식 앞두고</div><div class="tl neon">기간별 추천 시술</div></div>'],
  [2.8,4.9,'<div class="tl neon sm">&lt;결혼식 2~3달 전&gt;</div>'],
  [33.404,35.6,'<div class="tl neon sm">&lt;결혼식 한 달 전&gt;</div>'],
  [49.58,51.6,'<div class="tl neon sm">&lt;결혼식 2주 전&gt;</div>']];
@@ -50,15 +50,15 @@ const SUB0=[
  [13.474,14.7,'탄력이나 잔주름'],[14.7,15.84,'개선이 필요하다면'],[15.84,17.844,'<r>써마지 · 쎄르프</r>'],
  [17.844,19.32,'모공이랑 피부결'],[19.32,20.468,'개선을 원한다면'],[20.468,22.16,'<r>리투오</r>'],[22.16,23.76,'같은 주사 시술'],
  [23.76,25.55,'<r>홍조</r>나 <r>염증</r>'],[25.55,26.56,'<r>여드름</r>이 심하다면'],[26.56,28.7,'<r>리쥬란</r> 시술'],
- [28.7,29.54,'얼굴이 <r>건조</r>하다면'],[29.54,30.518,'<r>물광주사</r>'],[30.518,31.94,'<r>스킨바이브 · 리바이브</r>'],[31.94,33.404,'같은 시술'],
- [33.404,34.14,'<r>한 달</r> 전이라면'],[34.14,35.78,'<r>티타늄 · 온다</r>'],[35.78,37.17,'시술을 추천'],
+ [28.7,29.54,'얼굴이 <r>건조</r>하다면'],[29.54,30.518,'<r>물광주사</r>'],[30.518,31.94,'<r>스킨바이브 · 스킨리바이브</r>'],[31.94,33.404,'같은 시술'],
+ [33.404,34.472,'<r>한 달</r> 전이라면'],[34.472,35.78,'<r>티타늄 · 온다</r>'],[35.78,37.17,'시술을 추천'],
  [37.17,37.72,'티타늄은'],[37.72,38.42,'티타늄은','<g>①</g> 미백'],[38.42,39.66,'티타늄은','<g>①</g> 미백','<g>②</g> 탄력'],
  [39.66,41.93,'티타늄은','<g>①</g> 미백','<g>②</g> 탄력','<g>③</g> 얼굴 윤곽 정리에 도움'],
  [41.93,43.62,'온다는 얼굴 윤곽 정리에'],[43.62,44.85,'좀 더 <r>특화</r>'],
  [44.85,46.32,'주사 시술은'],[46.32,47.36,'<r>한 달 전</r>까지'],[47.36,49.58,'앞서 말한 것 모두 가능'],
  [49.58,51.44,'<r>2주</r>밖에 안 남았다면'],[51.44,52.64,'<r>티타늄</r>을'],[52.64,OLD_END,'추천드립니다']];
-const img=(f,c)=>`<div class="card"><img src="file://${location.pathname.replace(/[^/]+$/,'')}../dev2/${f}.png"></div>`;
-const img2=(a,b)=>`<div class="card two"><img src="file://${location.pathname.replace(/[^/]+$/,'')}../dev2/${a}.png"></div><div class="card two"><img src="file://${location.pathname.replace(/[^/]+$/,'')}../dev2/${b}.png"></div>`;
+const img=(f,c)=>`<div class="card"><img src="file://${location.pathname.replace(/[^/]+$/,'')}assets/${f}.png"></div>`;
+const img2=(a,b)=>`<div class="card two"><img src="file://${location.pathname.replace(/[^/]+$/,'')}assets/${a}.png"></div><div class="card two"><img src="file://${location.pathname.replace(/[^/]+$/,'')}assets/${b}.png"></div>`;
 const emo=(e,sm)=>`<div class="emoji${sm?' sm':''}">${e}</div>`;
 function cal(d,fs=172){return `<div class="card" style="padding:0;overflow:hidden;width:430px"><div style="background:#ff2b2b;color:#fff;font:800 44px/1 Sub;padding:20px 0">WEDDING 💍</div><div style="font:800 ${fs}px/1 Sub;color:#141414;padding:30px 0 36px;letter-spacing:-4px;white-space:nowrap;height:238px;display:flex;align-items:center;justify-content:center">${d}</div></div>`}
 
@@ -97,11 +97,11 @@ const GFX0=[
  [0,2.0,emo('💍')],[3.88,5.62,cal('D-60~90',96)],
  [7.85,8.66,face(1)],[8.66,9.548,face(2)],[9.548,11.54,face(3)],
  [12.14,13.474,img('ultherapy')],[15.84,17.844,img2('thermage','xerf')],
- [17.844,20.468,pores()],[20.468,22.16,inject('#e8587a')],[22.16,23.76,emo('💉','sm')],
+ [17.844,20.468,pores()],[20.468,23.76,inject('#e8587a')],
  [23.76,26.56,redness()],[27.18,28.7,inject('#f0a35e')],[29.54,30.518,emo('💧','sm')],
  [30.518,31.94,inject('#3fa9f5')],
- [33.404,34.472,cal('D-30')],[34.472,37.17,img2('titanium','onda')],
- [41.93,44.85,img('onda')],[44.85,46.32,emo('💉','sm')],
+ [33.404,34.472,cal('D-30')],[34.472,37.17,img2('titanium','onda_body')],
+ [41.93,44.85,img('onda_body')],[44.85,46.32,emo('💉','sm')],
  [49.58,51.44,cal('D-14')],[51.44,OLD_END,img('titanium')]];
 const map=L=>L.map(r=>[M(r[0]),M(r[1]),...r.slice(2)]).filter(r=>r[1]>r[0]);
 const HEAD=map(HEAD0), SUB=map(SUB0), GFX=map(GFX0);

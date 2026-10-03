@@ -3,7 +3,8 @@
 python cut.py plan.json
 plan = {"src": "footage/x.mp4", "out": "x_cut.mov", "sil": "tr/x.sil",
         "segs": [[in, out], ...],          # 쓸 구간(원본 초)
-        "zooms": [1.24, 1.32]}             # 컷마다 번갈아 쓸 배율(원본 9:16 4K 기준, 1.0 = 화면의 75% 높이)
+        "zooms": [1.24, 1.32],             # 컷마다 번갈아 쓸 배율(원본 9:16 4K 기준, 1.0 = 화면의 75% 높이)
+        "zoom_list": [...]}                # (선택) 컷별 배율을 직접 지정. 원본이 이어지는 곳은 같은 배율로 두면 화면이 바뀌지 않음
 segs 안의 0.22초 넘는 쉼은 자동으로 걷어 내고, 그 자리가 컷이 된다. 결과 옆에 <out>.json(컷 목록) 저장.
 """
 import json, os, subprocess, sys
@@ -60,16 +61,21 @@ def main():
         pieces.append([cur, b])
     zooms = plan.get("zooms", [1.24, 1.32]); cw0, ch0 = W * .75, H * .75
     tmp = P(plan["out"] + ".parts"); os.makedirs(tmp, exist_ok=True)
-    last = None; files = []; shots = []; T = 0
+    last = None; prev = (0, 0, 0, -9); files = []; shots = []; T = 0
     for i, (a, b) in enumerate(pieces):
         f = face_at(src, a, b, W, H) or last or [W / 2, H * .38, H * .14]; last = f
-        z = zooms[i % len(zooms)]; w = int(cw0 / z) // 2 * 2; h = int(ch0 / z) // 2 * 2
+        z = plan["zoom_list"][i] if "zoom_list" in plan else zooms[i % len(zooms)]
+        w = int(cw0 / z) // 2 * 2; h = int(ch0 / z) // 2 * 2
         x = int(max(0, min(W - w, f[0] - w / 2))); y = int(max(0, min(H - h, f[1] - .40 * h)))
+        # 숨 한 번 걷어 낸 정도(0.3초 미만)로 이어지는 같은 배율 컷은 직전 화면 위치를 그대로 써서 튀지 않게
+        if i and z == prev[0] and 0 <= a - prev[3] < .3:
+            x, y = prev[1], prev[2]
+        prev = (z, x, y, b)
         d = b - a
         vf = (f"crop={w}:{h}:{x}:{y},scale=1080:1920:flags=lanczos,fps=30,{tonemap(trc)}"
               "eq=contrast=1.03:saturation=1.03,unsharp=5:5:0.4,format=yuv420p")
         af = f"afade=t=in:d=0.015,afade=t=out:st={d - .025:.3f}:d=0.025,aresample=48000"
-        part = os.path.join(tmp, f"{i:02d}_{a:.2f}_{b:.2f}_{z}.mov")
+        part = os.path.join(tmp, f"{i:02d}_{a:.2f}_{b:.2f}_{z}_{x}_{y}.mov")
         if not os.path.exists(part):
             subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{a}", "-t", f"{d:.3f}", "-i", src, "-vf", vf, "-af", af, "-ac", "2",
                             "-c:v", "libx264", "-crf", "14", "-preset", "medium", "-color_primaries", "bt709", "-color_trc", "bt709",
