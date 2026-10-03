@@ -1,7 +1,7 @@
 """오버레이가 얼굴을 가리는지, 인스타그램 UI 영역에 들어가는지 모든 프레임에서 검사.
 
-python qa.py <합성 전 영상.mov> <오버레이 PNG 폴더>
-얼굴 = 얼굴 검출 상자에 좌우 10px, 위 15px, 아래 40px(턱)을 더한 영역. 하단 UI = y>=1632, 오른쪽 버튼 = x>=960 & 1150<=y<1700.
+python qa.py <합성 전 영상.mov> <오버레이 PNG 폴더> [턱 여유 px, 기본 40]
+얼굴 = 얼굴 검출 상자에 좌우 10px, 위 15px, 아래 pad(턱, 기본 40px)를 더한 영역. 검출 상자가 아랫입술 근처에서 끝나는 사람은 pad를 70 정도로. 하단 UI = y>=1632, 오른쪽 버튼 = x>=960 & 1150<=y<1700.
 """
 import json, subprocess, sys
 import cv2, numpy as np
@@ -24,7 +24,7 @@ def facemap(video):
 
 
 def main():
-    video, od = sys.argv[1], sys.argv[2]
+    video, od = sys.argv[1], sys.argv[2]; pad = int(sys.argv[3]) if len(sys.argv) > 3 else 40
     faces = facemap(video)
     p = subprocess.Popen(["ffmpeg", "-v", "error", "-framerate", "30", "-i", f"{od}/%05d.png", "-f", "rawvideo", "-pix_fmt", "rgba", "-"],
                          stdout=subprocess.PIPE)
@@ -32,7 +32,7 @@ def main():
     while len(b := p.stdout.read(W * H * 4)) == W * H * 4:
         a = np.frombuffer(b, np.uint8).reshape(H, W, 4)[:, :, 3] > 60
         t = i / 30; _, x, y, w, h = min(faces, key=lambda r: abs(r[0] - t))
-        n = int(a[max(0, y - 15):y + h + 40, max(0, x - 10):x + w + 10].sum())
+        n = int(a[max(0, y - 15):y + h + pad, max(0, x - 10):x + w + 10].sum())
         if n: bad.append((round(t, 2), n))
         ui += bool(a[1632:].any()); right += bool(a[1150:1700, 960:].any())
         ys = np.where(a.any(axis=1))[0]; low = max(low, int(ys.max()) if len(ys) else 0); i += 1
