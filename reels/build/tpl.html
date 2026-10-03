@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<!-- 릴스 오버레이 공통 틀. 영상별 내용은 ?data=<파일>.js 로 넘긴다(window.DATA). 시각은 모두 '원본 영상 초'로 적고 컷 목록(SHOTS)으로 결과 영상 시각에 옮긴다. -->
+<style>
+@font-face{font-family:Title;src:url(file:///root/.fonts/DoHyeon-Regular.ttf)}
+@font-face{font-family:Sub;src:url(file:///root/.fonts/Pretendard-ExtraBold.otf);font-weight:800}
+@font-face{font-family:Sub;src:url(file:///root/.fonts/Pretendard-Bold.otf);font-weight:700}
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden}
+*{box-sizing:border-box}
+.abs{position:absolute;left:0;right:0;text-align:center}
+/* ① 제목 카드: 위 11~29% */
+#title{top:205px}
+.tl{font-family:Title;line-height:1.02;letter-spacing:-1px;paint-order:stroke fill}
+.hollow{font-size:100px;color:#fff;-webkit-text-stroke:10px #181615;filter:drop-shadow(0 3px 0 rgba(0,0,0,.5))}
+.neon{font-size:128px;color:#39ff14;-webkit-text-stroke:12px #111;filter:drop-shadow(0 4px 0 #111)}
+/* ③ 자막: 턱 아래 */
+#sub{top:1084px}
+.sl{font:800 76px/1.2 Sub;color:#fff;-webkit-text-stroke:13px #141414;paint-order:stroke fill;letter-spacing:-2px;display:block;white-space:nowrap;margin:0 auto;width:max-content;transform-origin:50% 0}
+.sl r{color:#ff2b2b}
+.sl g{color:#39ff14}
+/* ④ 삽입 그래픽: 자막 아래, y 1196~1615 */
+#gfx{top:1196px;display:flex;justify-content:center;gap:26px;align-items:flex-start}
+.card{background:#fff;border-radius:26px;padding:14px;box-shadow:0 12px 32px rgba(0,0,0,.30)}
+.card img{width:392px;height:392px;object-fit:contain;display:block}
+.card.two img{width:330px;height:330px}
+.emoji{font-size:300px;line-height:1;font-family:'Noto Color Emoji'}
+.emoji.sm{font-size:230px}
+svg{display:block}
+</style></head><body>
+<div id="title" class="abs"></div>
+<div id="sub" class="abs"></div>
+<div id="gfx" class="abs"></div>
+<script>
+const Q=new URLSearchParams(location.search), BASE=location.pathname.replace(/[^/]+$/,'');
+const ASSET=f=>`file://${BASE}assets/${f}.png`;
+// ---------- 그래픽 라이브러리(직접 그린 도식 + 장비 사진) ----------
+const img=f=>`<div class="card"><img src="${ASSET(f)}"></div>`;
+const img2=(a,b)=>`<div class="card two"><img src="${ASSET(a)}"></div><div class="card two"><img src="${ASSET(b)}"></div>`;
+const emo=(e,sm)=>`<div class="emoji${sm?' sm':''}">${e}</div>`;
+const card=(inner,pad=10)=>`<div class="card" style="padding:${pad}px"><svg width="400" height="400" viewBox="0 0 330 330">${inner}</svg></div>`;
+function cal(d,fs=172,head='WEDDING 💍'){return `<div class="card" style="padding:0;overflow:hidden;width:430px"><div style="background:#ff2b2b;color:#fff;font:800 44px/1 Sub;padding:20px 0">${head}</div><div style="font:800 ${fs}px/1 Sub;color:#141414;padding:30px 0 36px;letter-spacing:-4px;white-space:nowrap;height:238px;display:flex;align-items:center;justify-content:center">${d}</div></div>`}
+// 숫자 카드: 위 띠(빨강) + 큰 숫자/짧은 말. 예) num('시술 간격','3~4주')
+function num(head,big,fs=150){return cal(big,fs,head)}
+// 얼굴 부위: areas ⊂ nasolabial(팔자) jaw(턱라인) chin(이중턱) forehead(이마) eyes(눈가) undereye(눈밑) cheek(볼) temple(관자) lips(입술) neck(목)
+function face(areas){const A=new Set(areas),R='#ff2b2b',on=k=>A.has(k)?R:'rgba(0,0,0,0)';
+ return card(`<path d="M165 30 C95 30 70 90 72 150 C74 205 105 255 165 275 C225 255 256 205 258 150 C260 90 235 30 165 30Z" fill="#f6e3d6" stroke="#4a3b33" stroke-width="5"/>
+ <path d="M118 128 q16 -10 32 0 M180 128 q16 -10 32 0" stroke="#4a3b33" stroke-width="5" fill="none" stroke-linecap="round"/>
+ <path d="M165 140 v38 q-6 6 -12 4" stroke="#4a3b33" stroke-width="4" fill="none" stroke-linecap="round"/>
+ <path d="M140 215 q25 14 50 0" stroke="#c46a5a" stroke-width="6" fill="none" stroke-linecap="round"/>
+ <path d="M100 70 q65 -26 130 0" stroke="${on('forehead')}" stroke-width="9" fill="none" stroke-linecap="round"/>
+ <path d="M98 118 l-14 -6 M98 130 l-16 2 M232 118 l14 -6 M232 130 l16 2" stroke="${on('eyes')}" stroke-width="7" stroke-linecap="round"/>
+ <path d="M114 146 q20 10 40 0 M176 146 q20 10 40 0" stroke="${on('undereye')}" stroke-width="7" fill="none" stroke-linecap="round"/>
+ <ellipse cx="108" cy="178" rx="20" ry="14" fill="${A.has('cheek')?'rgba(255,43,43,.45)':'none'}"/><ellipse cx="222" cy="178" rx="20" ry="14" fill="${A.has('cheek')?'rgba(255,43,43,.45)':'none'}"/>
+ <path d="M80 92 q-8 22 -4 44 M250 92 q8 22 4 44" stroke="${on('temple')}" stroke-width="9" fill="none" stroke-linecap="round"/>
+ <path d="M140 215 q25 14 50 0 q-25 -10 -50 0" stroke="${on('lips')}" stroke-width="7" fill="none"/>
+ <path d="M132 178 q-14 22 -6 42 M198 178 q14 22 6 42" stroke="${on('nasolabial')}" stroke-width="9" fill="none" stroke-linecap="round"/>
+ <path d="M80 175 C92 225 125 258 165 270 C205 258 238 225 250 175" stroke="${on('jaw')}" stroke-width="9" fill="none" stroke-linecap="round"/>
+ <ellipse cx="165" cy="292" rx="62" ry="22" fill="none" stroke="${on('chin')}" stroke-width="8"/>
+ <path d="M120 300 v26 M210 300 v26" stroke="${on('neck')}" stroke-width="9" stroke-linecap="round"/>`)}
+// 피부 단면: level 1 표피 · 2 진피 · 3 근막(SMAS)에 에너지가 모이는 지점.
+// kind: 'dot'(초음파 초점) | 'heat'(고주파·극초단파 넓은 열) | 'dual'(두 깊이에 열: 진피+근막) | 'combo'(진피 열 + 근막 초점)
+function layers(level,kind='dot',col='#ff2b2b'){
+ const Y=[0,58,150,262][level];
+ const heat=y=>`<rect x="70" y="${y-26}" width="250" height="52" rx="26" fill="${col}" opacity=".35"/><rect x="95" y="${y-12}" width="200" height="24" rx="12" fill="${col}" opacity=".55"/>`;
+ const dots=y=>[105,165,225,285].map(x=>`<circle cx="${x}" cy="${y}" r="13" fill="${col}"/>`).join('');
+ if(kind==='dual'||kind==='combo'){const m=kind==='dual'?heat(150)+heat(262):heat(150)+dots(262);
+  return layers.base(m)}
+ const mark=kind==='heat'?`<rect x="30" y="${Y-26}" width="270" height="52" rx="26" fill="${col}" opacity=".35"/><rect x="60" y="${Y-12}" width="210" height="24" rx="12" fill="${col}" opacity=".55"/>`
+   :[105,165,225,285].map(x=>`<circle cx="${x}" cy="${Y}" r="13" fill="${col}"/><path d="M${x} 6 L${x} ${Y-16}" stroke="${col}" stroke-width="4" stroke-dasharray="8 8"/>`).join('');
+ return layers.base(mark)}
+layers.base=mark=>card(`<rect x="0" y="0" width="330" height="330" rx="18" fill="#fbf6f2"/>
+ <rect x="0" y="30" width="330" height="56" fill="#f3cdb9"/><rect x="0" y="86" width="330" height="128" fill="#eeb8a2"/><rect x="0" y="214" width="330" height="96" fill="#d98f80"/>
+ <text x="12" y="66" font-family="Sub" font-weight="800" font-size="24" fill="#5a3c33">표피</text>
+ <text x="12" y="156" font-family="Sub" font-weight="800" font-size="24" fill="#5a3c33">진피</text>
+ <text x="12" y="270" font-family="Sub" font-weight="800" font-size="24" fill="#fff">근막</text>${mark}`);
+// 색소(기미·잡티) 피부
+function spots(){let c='';for(let i=0;i<22;i++){const x=40+(i*67)%250,y=60+((i*41)%210);c+=`<ellipse cx="${x}" cy="${y}" rx="${8+(i%4)*4}" ry="${6+(i%3)*3}" fill="rgba(140,90,60,${.35+(i%3)*.15})"/>`}
+ return card(`<rect width="330" height="330" rx="18" fill="#f6e3d6"/>${c}`)}
+// 레이저 빛이 피부에 닿는 그림
+function laser(col='#ff2b2b'){return card(`<rect width="330" height="330" rx="18" fill="#fbf6f2"/><rect x="0" y="210" width="330" height="120" fill="#f2c7b5"/>
+ <rect x="125" y="20" width="80" height="70" rx="12" fill="#e9edf1" stroke="#4a3b33" stroke-width="5"/>
+ ${[-60,-30,0,30,60].map(d=>`<line x1="165" y1="92" x2="${165+d}" y2="206" stroke="${col}" stroke-width="6" stroke-linecap="round"/>`).join('')}
+ <ellipse cx="165" cy="214" rx="85" ry="10" fill="${col}" opacity=".45"/>`)}
+// 주름
+function wrinkles(){return card(`<rect width="330" height="330" rx="18" fill="#f6e3d6"/>${[90,140,190,240].map((y,i)=>`<path d="M40 ${y} q60 -${14+i*2} 125 0 t125 0" stroke="#b5735f" stroke-width="${7-i}" fill="none" stroke-linecap="round"/>`).join('')}`)}
+function pores(){let c='';for(let i=0;i<34;i++){const x=20+(i*67)%290,y=24+((i*41)%250);c+=`<circle cx="${x}" cy="${y}" r="${5+(i%4)*2}" fill="#d9a48f"/>`}
+ return card(`<rect width="330" height="330" rx="16" fill="#f6e3d6"/>${c}<circle cx="230" cy="200" r="70" fill="rgba(255,255,255,.35)" stroke="#141414" stroke-width="10"/><line x1="280" y1="250" x2="315" y2="295" stroke="#141414" stroke-width="16" stroke-linecap="round"/>`)}
+function redness(){let c='';for(let i=0;i<26;i++){const x=70+(i*53)%190,y=120+((i*37)%120);c+=`<circle cx="${x}" cy="${y}" r="${6+(i%3)*4}" fill="rgba(230,40,40,${.35+(i%3)*.15})"/>`}
+ return card(`<rect width="330" height="330" rx="16" fill="#f6e3d6"/><ellipse cx="165" cy="180" rx="120" ry="90" fill="rgba(240,110,110,.28)"/>${c}`)}
+// 주사(스킨부스터 등): 색으로 시술 구분, 상표 없음
+function inject(col){let d='';for(let i=0;i<14;i++){const x=150+(i*37)%150,y=205+((i*23)%70);d+=`<circle cx="${x}" cy="${y}" r="${7+(i%3)*3}" fill="${col}" opacity="${.55+(i%3)*.15}"/>`}
+ return card(`<rect width="330" height="330" rx="18" fill="#fbf6f2"/>
+ <path d="M0 150 q40 -10 82 0 t82 0 t82 0 t84 0 V330 H0Z" fill="#f2c7b5"/><path d="M0 150 q40 -10 82 0 t82 0 t82 0 t84 0 V178 q-42 10 -84 0 t-82 0 t-82 0 t-82 0Z" fill="#e9a891"/>${d}
+ <g transform="translate(78 58) rotate(38) scale(.86)"><rect x="0" y="-16" width="150" height="32" rx="6" fill="#fff" stroke="#4a3b33" stroke-width="5"/>
+ <rect x="8" y="-10" width="96" height="20" rx="3" fill="${col}"/><rect x="150" y="-7" width="26" height="14" fill="#cfd6dc" stroke="#4a3b33" stroke-width="4"/>
+ <line x1="176" y1="0" x2="236" y2="0" stroke="#4a3b33" stroke-width="5" stroke-linecap="round"/><rect x="-34" y="-5" width="34" height="10" fill="#4a3b33"/><rect x="-46" y="-20" width="12" height="40" rx="4" fill="#4a3b33"/></g>`)}
+// ---------- 데이터 → 결과 영상 시각 ----------
+const D=window.DATA, SHOTS=D.SHOTS, END=D.END;
+function M(s){ // 원본 초 → 결과 초
+ for(const k of SHOTS){ if(s<k.src[0]) return k.t0; if(s<k.src[1]) return +(k.t0+(s-k.src[0])).toFixed(3); }
+ return END;}
+const ev=x=>typeof x==='string'&&x.startsWith('=')?eval(x.slice(1)):x;   // "=face(['jaw'])" 처럼 '='로 시작하면 그래픽 함수 호출
+const map=L=>L.map(r=>[r[0]==='END'?END:M(r[0]),r[1]==='END'?END:M(r[1]),...r.slice(2).map(ev)]).filter(r=>r[1]>r[0]);
+const HEAD=map(D.HEAD), SUB=map(D.SUB), GFX=map(D.GFX), SHOTOFF=D.SHOTOFF||[];
+const pick=(L,t)=>L.find(x=>t>=x[0]&&t<x[1]);
+const $=id=>document.getElementById(id);
+let cur={}; function set(id,v){if(cur[id]!==v){$(id).innerHTML=v||'';cur[id]=v}}
+if(D.TITLE_TOP) $('title').style.top=D.TITLE_TOP+'px';
+// 자막 시작 높이(영상마다 턱 위치에 맞춤). 그래픽은 자막 한 줄 아래(+112px)
+if(D.SUB_TOP){ $('sub').style.top=D.SUB_TOP+'px'; $('gfx').style.top=(D.SUB_TOP+112)+'px'; }
+window.render=function(t){
+ const so=(SHOTOFF.find(r=>t>=r[0]&&t<r[1])||[0,0,0])[2]; $('sub').style.transform=`translateY(${so}px)`; $('gfx').style.transform=`translateY(${so}px)`;
+ const h=pick(HEAD,t); set('title',h?h[2]:'');
+ const s=pick(SUB,t);  set('sub',s?s.slice(2).map(l=>`<span class="sl">${l}</span>`).join(''):'');
+ document.querySelectorAll('#sub .sl').forEach(e=>{e.style.transform='';const w=e.getBoundingClientRect().width;if(w>1000)e.style.transform=`scale(${(1000/w).toFixed(3)})`;});
+ const g=pick(GFX,t);  set('gfx',g?g[2]:'');
+ return JSON.stringify([so,h&&h[0],s&&s[0]+'|'+s.length,g&&g[0]]);
+};
+</script></body></html>
