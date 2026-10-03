@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Title;src:url(file:///root/.fonts/DoHyeon-Regular.ttf)}
+@font-face{font-family:Sub;src:url(file:///root/.fonts/Pretendard-ExtraBold.otf);font-weight:800}
+@font-face{font-family:Sub;src:url(file:///root/.fonts/Pretendard-Bold.otf);font-weight:700}
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden}
+*{box-sizing:border-box}
+.abs{position:absolute;left:0;right:0;text-align:center}
+.hide{display:none!important}
+/* ① 제목 카드: 화면 위 11~29% */
+#title{top:205px}
+.tl{font-family:Title;line-height:1.02;letter-spacing:-1px;paint-order:stroke fill}
+.hollow{font-size:100px;color:#fff;-webkit-text-stroke:10px #181615;filter:drop-shadow(0 3px 0 rgba(0,0,0,.5))}
+.neon{font-size:128px;color:#39ff14;-webkit-text-stroke:12px #111;filter:drop-shadow(0 4px 0 #111)}
+.neon.sm{font-size:128px}
+/* ③ 자막: 위에서 60% */
+#sub{top:1084px}
+.sl{font:800 76px/1.2 Sub;color:#fff;-webkit-text-stroke:13px #141414;paint-order:stroke fill;letter-spacing:-2px;display:block;white-space:nowrap;margin:0 auto;width:max-content;transform-origin:50% 0}
+.sl r{color:#ff2b2b}
+.sl g{color:#39ff14}
+/* ④ 삽입 그래픽: 자막 아래 가슴~배 */
+#gfx{top:1196px;display:flex;justify-content:center;gap:26px;align-items:flex-start}
+.card{background:#fff;border-radius:26px;padding:14px;box-shadow:0 12px 32px rgba(0,0,0,.30)}
+.card img{width:392px;height:392px;object-fit:contain;display:block}
+.card.two img{width:330px;height:330px}
+.cap{font:700 30px/1 Sub;color:#141414;margin-top:6px}
+.emoji{font-size:300px;line-height:1;font-family:'Noto Color Emoji'}
+.emoji.sm{font-size:230px}
+svg{display:block}
+</style></head><body>
+<div id="title" class="abs"></div>
+<div id="sub" class="abs"></div>
+<div id="gfx" class="abs"></div>
+<script>
+// 원본(1차 컷) 시각으로 적고, '스킨보톡스'(21.18~22.16)를 잘라 낸 새 컷 시각으로 옮긴다
+const CUT=21.18, DEL=0.98, END=53.61;
+const M=t=>t<CUT?t:(t<CUT+DEL?CUT:Math.min(END,+(t-DEL).toFixed(3)));
+const OLD_END=99;
+const HEAD0=[
+ [0,2.8,'<div class="tl hollow">결혼식 앞두고</div><div class="tl neon">기간별 추천 시술</div>'],
+ [2.8,4.9,'<div class="tl neon sm">&lt;결혼식 2~3달 전&gt;</div>'],
+ [33.404,35.6,'<div class="tl neon sm">&lt;결혼식 한 달 전&gt;</div>'],
+ [49.58,51.6,'<div class="tl neon sm">&lt;결혼식 2주 전&gt;</div>']];
+const SUB0=[
+ [0,0.76,'결혼식이 얼마나'],[0.76,1.88,'남았냐에 따라'],[1.88,2.8,'다른데요'],
+ [2.8,3.88,'만약 결혼식이'],[3.88,5.62,'<r>2~3달</r> 남았다면'],[5.62,6.72,'받을 수 있는'],[6.72,7.85,'시술이 <r>많습니다</r>'],
+ [7.85,8.66,'<r>팔자</r>라든지'],[8.66,9.548,'<r>턱라인</r>'],[9.548,10.3,'<r>이중턱</r> 같은 데'],[10.3,11.54,'리프팅이 필요하다면'],
+ [11.54,13.474,'[초음파 리프팅] = <r>울쎄라</r>'],
+ [13.474,14.7,'탄력이나 잔주름'],[14.7,15.84,'개선이 필요하다면'],[15.84,17.844,'<r>써마지 · 쎄르프</r>'],
+ [17.844,19.32,'모공이랑 피부결'],[19.32,20.468,'개선을 원한다면'],[20.468,22.16,'<r>리투오</r>'],[22.16,23.76,'같은 주사 시술'],
+ [23.76,25.55,'<r>홍조</r>나 <r>염증</r>'],[25.55,26.56,'<r>여드름</r>이 심하다면'],[26.56,28.7,'<r>리쥬란</r> 시술'],
+ [28.7,29.54,'얼굴이 <r>건조</r>하다면'],[29.54,30.518,'<r>물광주사</r>'],[30.518,31.94,'<r>스킨바이브 · 리바이브</r>'],[31.94,33.404,'같은 시술'],
+ [33.404,34.14,'<r>한 달</r> 전이라면'],[34.14,35.78,'<r>티타늄 · 온다</r>'],[35.78,37.17,'시술을 추천'],
+ [37.17,37.72,'티타늄은'],[37.72,38.42,'티타늄은','<g>①</g> 미백'],[38.42,39.66,'티타늄은','<g>①</g> 미백','<g>②</g> 탄력'],
+ [39.66,41.93,'티타늄은','<g>①</g> 미백','<g>②</g> 탄력','<g>③</g> 얼굴 윤곽 정리에 도움'],
+ [41.93,43.62,'온다는 얼굴 윤곽 정리에'],[43.62,44.85,'좀 더 <r>특화</r>'],
+ [44.85,46.32,'주사 시술은'],[46.32,47.36,'<r>한 달 전</r>까지'],[47.36,49.58,'앞서 말한 것 모두 가능'],
+ [49.58,51.44,'<r>2주</r>밖에 안 남았다면'],[51.44,52.64,'<r>티타늄</r>을'],[52.64,OLD_END,'추천드립니다']];
+const img=(f,c)=>`<div class="card"><img src="file://${location.pathname.replace(/[^/]+$/,'')}../dev2/${f}.png"></div>`;
+const img2=(a,b)=>`<div class="card two"><img src="file://${location.pathname.replace(/[^/]+$/,'')}../dev2/${a}.png"></div><div class="card two"><img src="file://${location.pathname.replace(/[^/]+$/,'')}../dev2/${b}.png"></div>`;
+const emo=(e,sm)=>`<div class="emoji${sm?' sm':''}">${e}</div>`;
+function cal(d,fs=172){return `<div class="card" style="padding:0;overflow:hidden;width:430px"><div style="background:#ff2b2b;color:#fff;font:800 44px/1 Sub;padding:20px 0">WEDDING 💍</div><div style="font:800 ${fs}px/1 Sub;color:#141414;padding:30px 0 36px;letter-spacing:-4px;white-space:nowrap;height:238px;display:flex;align-items:center;justify-content:center">${d}</div></div>`}
+
+// 직접 그린 주사 도식: 피부 단면(표피·진피) + 주사기 + 진피에 퍼지는 방울(색으로 시술 구분), 상표·제품 없음
+function inject(col){let d='';for(let i=0;i<14;i++){const x=150+(i*37)%150,y=205+((i*23)%70);d+=`<circle cx="${x}" cy="${y}" r="${7+(i%3)*3}" fill="${col}" opacity="${.55+(i%3)*.15}"/>`}
+ return `<div class="card" style="padding:10px"><svg width="400" height="400" viewBox="0 0 330 330">
+ <rect x="0" y="0" width="330" height="330" rx="18" fill="#fbf6f2"/>
+ <path d="M0 150 q40 -10 82 0 t82 0 t82 0 t84 0 V330 H0Z" fill="#f2c7b5"/>
+ <path d="M0 150 q40 -10 82 0 t82 0 t82 0 t84 0 V178 q-42 10 -84 0 t-82 0 t-82 0 t-82 0Z" fill="#e9a891"/>
+ ${d}
+ <g transform="translate(78 58) rotate(38) scale(.86)">
+  <rect x="0" y="-16" width="150" height="32" rx="6" fill="#ffffff" stroke="#4a3b33" stroke-width="5"/>
+  <rect x="8" y="-10" width="96" height="20" rx="3" fill="${col}"/>
+  <rect x="150" y="-7" width="26" height="14" fill="#cfd6dc" stroke="#4a3b33" stroke-width="4"/>
+  <line x1="176" y1="0" x2="236" y2="0" stroke="#4a3b33" stroke-width="5" stroke-linecap="round"/>
+  <rect x="-34" y="-5" width="34" height="10" fill="#4a3b33"/><rect x="-46" y="-20" width="12" height="40" rx="4" fill="#4a3b33"/>
+ </g></svg></div>`}
+function face(step){ // 직접 그린 도식: 1 팔자 2 턱라인 3 이중턱
+ const on=(k)=>step>=k?'#ff2b2b':'rgba(0,0,0,0)';
+ return `<div class="card" style="padding:10px"><svg width="400" height="400" viewBox="0 0 330 330">
+ <path d="M165 30 C95 30 70 90 72 150 C74 205 105 255 165 275 C225 255 256 205 258 150 C260 90 235 30 165 30Z" fill="#f6e3d6" stroke="#4a3b33" stroke-width="5"/>
+ <path d="M118 128 q16 -10 32 0 M180 128 q16 -10 32 0" stroke="#4a3b33" stroke-width="5" fill="none" stroke-linecap="round"/>
+ <path d="M165 140 v38 q-6 6 -12 4" stroke="#4a3b33" stroke-width="4" fill="none" stroke-linecap="round"/>
+ <path d="M140 215 q25 14 50 0" stroke="#c46a5a" stroke-width="6" fill="none" stroke-linecap="round"/>
+ <path d="M132 178 q-14 22 -6 42 M198 178 q14 22 6 42" stroke="${on(1)}" stroke-width="9" fill="none" stroke-linecap="round"/>
+ <path d="M80 175 C92 225 125 258 165 270 C205 258 238 225 250 175" stroke="${on(2)}" stroke-width="9" fill="none" stroke-linecap="round" stroke-dasharray="${step>=2?'0':'0'}"/>
+ <ellipse cx="165" cy="292" rx="62" ry="22" fill="none" stroke="${step>=3?'#ffd400':'rgba(0,0,0,0)'}" stroke-width="8"/>
+ </svg></div>`}
+function pores(){let c='';for(let i=0;i<34;i++){const x=20+(i*67)%290,y=24+((i*41)%250);c+=`<circle cx="${x}" cy="${y}" r="${5+(i%4)*2}" fill="#d9a48f"/>`}
+ return `<div class="card" style="padding:10px"><svg width="416" height="390" viewBox="0 0 320 300"><rect width="320" height="300" rx="16" fill="#f6e3d6"/>${c}
+ <circle cx="230" cy="190" r="70" fill="rgba(255,255,255,.35)" stroke="#141414" stroke-width="10"/><line x1="280" y1="240" x2="315" y2="285" stroke="#141414" stroke-width="16" stroke-linecap="round"/></svg></div>`}
+function redness(){let c='';for(let i=0;i<26;i++){const x=70+(i*53)%190,y=110+((i*37)%120);c+=`<circle cx="${x}" cy="${y}" r="${6+(i%3)*4}" fill="rgba(230,40,40,${.35+(i%3)*.15})"/>`}
+ return `<div class="card" style="padding:10px"><svg width="416" height="390" viewBox="0 0 320 300"><rect width="320" height="300" rx="16" fill="#f6e3d6"/>
+ <ellipse cx="160" cy="170" rx="120" ry="90" fill="rgba(240,110,110,.28)"/>${c}</svg></div>`}
+const GFX0=[
+ [0,2.0,emo('💍')],[3.88,5.62,cal('D-60~90',96)],
+ [7.85,8.66,face(1)],[8.66,9.548,face(2)],[9.548,11.54,face(3)],
+ [12.14,13.474,img('ultherapy')],[15.84,17.844,img2('thermage','xerf')],
+ [17.844,20.468,pores()],[20.468,22.16,inject('#e8587a')],[22.16,23.76,emo('💉','sm')],
+ [23.76,26.56,redness()],[27.18,28.7,inject('#f0a35e')],[29.54,30.518,emo('💧','sm')],
+ [30.518,31.94,inject('#3fa9f5')],
+ [33.404,34.472,cal('D-30')],[34.472,37.17,img2('titanium','onda')],
+ [41.93,44.85,img('onda')],[44.85,46.32,emo('💉','sm')],
+ [49.58,51.44,cal('D-14')],[51.44,OLD_END,img('titanium')]];
+const map=L=>L.map(r=>[M(r[0]),M(r[1]),...r.slice(2)]).filter(r=>r[1]>r[0]);
+const HEAD=map(HEAD0), SUB=map(SUB0), GFX=map(GFX0);
+const pick=(L,t)=>L.find(x=>t>=x[0]&&t<x[1]);
+const $=id=>document.getElementById(id);
+let cur={};
+function set(id,v){if(cur[id]!==v){$(id).innerHTML=v||'';cur[id]=v}}
+// 컷마다 얼굴(턱)이 내려온 만큼 자막·그래픽을 함께 내림(shotface.py)
+const SHOTOFF=[[0, 2.8, 0], [2.8, 7.85, 4], [7.85, 9.548, 0], [9.548, 13.474, 0], [13.474, 17.844, 0], [17.844, 20.468, 0], [20.468, 21.18, 0], [21.18, 22.78, 0], [22.78, 27.72, 0], [27.72, 29.538, 14], [29.538, 32.425, 0], [32.425, 33.492, 4], [33.492, 36.19, 0], [36.19, 37.44, 0], [37.44, 40.95, 0], [40.95, 43.87, 0], [43.87, 48.6, 0], [48.6, 50.46, 0], [50.46, 53.615, 0]];
+window.render=function(t){
+ const so=(SHOTOFF.find(r=>t>=r[0]&&t<r[1])||[0,0,0])[2]; $('sub').style.transform=`translateY(${so}px)`; $('gfx').style.transform=`translateY(${so}px)`;
+ const h=pick(HEAD,t); set('title',h?h[2]:'');
+ const s=pick(SUB,t);  set('sub',s?s.slice(2).map(l=>`<span class="sl">${l}</span>`).join(''):'');
+ document.querySelectorAll('#sub .sl').forEach(e=>{e.style.transform='';const w=e.getBoundingClientRect().width;if(w>1000)e.style.transform=`scale(${(1000/w).toFixed(3)})`;});
+ const g=pick(GFX,t);  set('gfx',g?g[2]:'');
+ return JSON.stringify([so,h&&h[0],s&&s[0]+'|'+s.length,g&&g[0]]);
+};
+</script></body></html>
