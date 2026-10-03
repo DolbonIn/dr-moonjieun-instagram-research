@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="ko"><head><meta charset="utf-8">
+<style>
+@font-face{font-family:Title;src:url(file:///root/.fonts/DoHyeon-Regular.ttf)}
+@font-face{font-family:Sub;src:url(file:///root/.fonts/Pretendard-ExtraBold.otf);font-weight:800}
+@font-face{font-family:Sub;src:url(file:///root/.fonts/Pretendard-Bold.otf);font-weight:700}
+html,body{margin:0;width:1080px;height:1920px;background:transparent;overflow:hidden}
+*{box-sizing:border-box}
+.abs{position:absolute;left:0;right:0;text-align:center}
+.hide{display:none!important}
+/* ① 제목 카드: 화면 위 11~29% */
+#title{top:205px}
+.tl{font-family:Title;line-height:1.02;letter-spacing:-1px;paint-order:stroke fill}
+.hollow{font-size:118px;color:rgba(255,255,255,.12);-webkit-text-stroke:5px #fff;filter:drop-shadow(0 3px 0 rgba(0,0,0,.55)) drop-shadow(0 0 6px rgba(0,0,0,.35))}
+.neon{font-size:150px;color:#39ff14;-webkit-text-stroke:12px #111;filter:drop-shadow(0 4px 0 #111)}
+.neon.sm{font-size:128px}
+/* ③ 자막: 위에서 60% */
+#sub{top:1084px}
+.sl{font:800 76px/1.2 Sub;color:#fff;-webkit-text-stroke:13px #141414;paint-order:stroke fill;letter-spacing:-2px;display:block;white-space:nowrap;margin:0 auto;width:max-content;transform-origin:50% 0}
+.sl r{color:#ff2b2b}
+.sl g{color:#ffe600}
+/* ④ 삽입 그래픽: 자막 아래 가슴~배 */
+#gfx{top:1196px;display:flex;justify-content:center;gap:26px;align-items:flex-start}
+.card{background:#fff;border-radius:26px;padding:14px;box-shadow:0 12px 32px rgba(0,0,0,.30)}
+.card img{width:392px;height:392px;object-fit:contain;display:block}
+.card.two img{width:330px;height:330px}
+.cap{font:700 30px/1 Sub;color:#141414;margin-top:6px}
+.emoji{font-size:300px;line-height:1;font-family:'Noto Color Emoji'}
+.emoji.sm{font-size:230px}
+svg{display:block}
+</style></head><body>
+<div id="title" class="abs"></div>
+<div id="sub" class="abs"></div>
+<div id="gfx" class="abs"></div>
+<script>
+const END=54.62;
+// 제목 카드 & 소제목 카드 [t0,t1,html]
+const HEAD=[
+ [0,2.6,'<div class="tl hollow">결혼식 앞두고</div><div class="tl neon">기간별 필수 시술</div>'],
+ [2.6,4.9,'<div class="tl neon sm">&lt;결혼식 2~3달 전&gt;</div>'],
+ [33.42,35.6,'<div class="tl neon sm">&lt;결혼식 한 달 전&gt;</div>'],
+ [49.5,51.6,'<div class="tl neon sm">&lt;결혼식 2주 전&gt;</div>']];
+// 자막 [t0,t1,lines...]
+const SUB=[
+ [0,0.76,'결혼식이 얼마나'],[0.76,1.88,'남았냐에 따라'],[1.88,2.6,'다른데요'],
+ [2.6,3.88,'만약 결혼식이'],[3.88,5.62,'<r>2~3달</r> 남았다면'],[5.62,6.72,'받을 수 있는'],[6.72,7.75,'시술이 <r>많습니다</r>'],
+ [7.75,8.66,'<r>팔자</r>라든지'],[8.66,9.38,'<r>턱라인</r>'],[9.38,10.3,'<r>이중턱</r> 같은 데'],[10.3,11.54,'리프팅이 필요하다면'],
+ [11.54,13.4,'[강한 리프팅] = <r>울쎄라</r>'],
+ [13.4,14.7,'탄력이나 잔주름'],[14.7,15.84,'개선이 필요하다면'],[15.84,17.76,'<r>써마지 · 쎄르프</r>'],
+ [17.76,19.32,'모공이랑 피부결'],[19.32,20.24,'개선을 원한다면'],[20.24,21.06,'<r>리투오</r>'],[21.06,22.28,'<r>스킨 톡신</r>'],[22.28,23.74,'같은 주사 시술'],
+ [23.74,25.06,'<r>홍조</r>나 <r>염증</r>'],[25.06,26.56,'<r>여드름</r>이 심하다면'],[26.56,28.6,'<r>리쥬란</r> 시술'],
+ [28.6,29.54,'얼굴이 <r>건조</r>하다면'],[29.54,30.42,'<r>물광주사</r>'],[30.42,31.94,'<r>스킨바이브 · 리바이브</r>'],[31.94,33.42,'같은 시술'],
+ [33.42,34.14,'<r>한 달</r> 전이라면'],[34.14,35.78,'<r>티타늄 · 온다</r>'],[35.78,37.08,'시술을 가장 추천'],
+ [37.08,37.72,'티타늄 ='],[37.72,38.24,'티타늄 =','<g>①</g> 미백'],[38.24,39.66,'티타늄 =','<g>①</g> 미백','<g>②</g> 탄력'],
+ [39.66,41.92,'티타늄 =','<g>①</g> 미백','<g>②</g> 탄력','<g>③</g> <r>얼굴 윤곽</r> 정리'],
+ [41.92,43.62,'온다는 얼굴 윤곽 정리에'],[43.62,44.84,'좀 더 <r>특화</r>'],
+ [44.84,46.32,'주사 시술은'],[46.32,47.36,'<r>한 달 전</r>까지'],[47.36,49.5,'앞서 말한 것 모두 가능'],
+ [49.5,51.28,'<r>2주</r>밖에 안 남았다면'],[51.28,52.64,'<r>티타늄</r>을'],[52.64,END,'가장 강력하게 추천']];
+const img=(f,c)=>`<div class="card"><img src="file://${location.pathname.replace(/[^/]+$/,'')}../dev/${f}.png"></div>`;
+const img2=(a,b)=>`<div class="card two"><img src="file://${location.pathname.replace(/[^/]+$/,'')}../dev/${a}.png"></div><div class="card two"><img src="file://${location.pathname.replace(/[^/]+$/,'')}../dev/${b}.png"></div>`;
+const emo=(e,sm)=>`<div class="emoji${sm?' sm':''}">${e}</div>`;
+function cal(d){return `<div class="card" style="padding:0;overflow:hidden;width:430px"><div style="background:#ff2b2b;color:#fff;font:800 44px/1 Sub;padding:20px 0">WEDDING 💍</div><div style="font:800 172px/1 Sub;color:#141414;padding:30px 0 36px;letter-spacing:-4px">${d}</div></div>`}
+function face(step){ // 직접 그린 도식: 1 팔자 2 턱라인 3 이중턱
+ const on=(k)=>step>=k?'#ff2b2b':'rgba(0,0,0,0)';
+ return `<div class="card" style="padding:10px"><svg width="400" height="400" viewBox="0 0 330 330">
+ <path d="M165 30 C95 30 70 90 72 150 C74 205 105 255 165 275 C225 255 256 205 258 150 C260 90 235 30 165 30Z" fill="#f6e3d6" stroke="#4a3b33" stroke-width="5"/>
+ <path d="M118 128 q16 -10 32 0 M180 128 q16 -10 32 0" stroke="#4a3b33" stroke-width="5" fill="none" stroke-linecap="round"/>
+ <path d="M165 140 v38 q-6 6 -12 4" stroke="#4a3b33" stroke-width="4" fill="none" stroke-linecap="round"/>
+ <path d="M140 215 q25 14 50 0" stroke="#c46a5a" stroke-width="6" fill="none" stroke-linecap="round"/>
+ <path d="M132 178 q-14 22 -6 42 M198 178 q14 22 6 42" stroke="${on(1)}" stroke-width="9" fill="none" stroke-linecap="round"/>
+ <path d="M80 175 C92 225 125 258 165 270 C205 258 238 225 250 175" stroke="${on(2)}" stroke-width="9" fill="none" stroke-linecap="round" stroke-dasharray="${step>=2?'0':'0'}"/>
+ <ellipse cx="165" cy="292" rx="62" ry="22" fill="none" stroke="${step>=3?'#ffd400':'rgba(0,0,0,0)'}" stroke-width="8"/>
+ </svg></div>`}
+function pores(){let c='';for(let i=0;i<34;i++){const x=20+(i*67)%290,y=24+((i*41)%250);c+=`<circle cx="${x}" cy="${y}" r="${5+(i%4)*2}" fill="#d9a48f"/>`}
+ return `<div class="card" style="padding:10px"><svg width="416" height="390" viewBox="0 0 320 300"><rect width="320" height="300" rx="16" fill="#f6e3d6"/>${c}
+ <circle cx="230" cy="190" r="70" fill="rgba(255,255,255,.35)" stroke="#141414" stroke-width="10"/><line x1="280" y1="240" x2="315" y2="285" stroke="#141414" stroke-width="16" stroke-linecap="round"/></svg></div>`}
+function redness(){let c='';for(let i=0;i<26;i++){const x=70+(i*53)%190,y=110+((i*37)%120);c+=`<circle cx="${x}" cy="${y}" r="${6+(i%3)*4}" fill="rgba(230,40,40,${.35+(i%3)*.15})"/>`}
+ return `<div class="card" style="padding:10px"><svg width="416" height="390" viewBox="0 0 320 300"><rect width="320" height="300" rx="16" fill="#f6e3d6"/>
+ <ellipse cx="160" cy="170" rx="120" ry="90" fill="rgba(240,110,110,.28)"/>${c}</svg></div>`}
+const GFX=[
+ [0,2.0,emo('💍')],[3.88,5.62,cal('D-90')],
+ [7.75,8.66,face(1)],[8.66,9.38,face(2)],[9.38,11.54,face(3)],
+ [12.14,14.0,img('ultherapy-device2')],[15.84,17.76,img2('thermage-device','xerf-v2')],
+ [17.76,19.9,pores()],[20.24,21.9,img('elravie-pack')],[22.28,23.74,emo('💉','sm')],
+ [23.74,26.0,redness()],[27.18,28.9,img('rejuran-pack')],[29.54,30.42,emo('💧','sm')],
+ [30.42,31.94,img2('skinvive-pack','belotero-pack')],
+ [33.42,34.6,cal('D-30')],[34.6,36.9,img2('titanium-device','onda-v2')],
+ [41.92,44.2,img('onda-v2')],[44.84,46.3,emo('💉','sm')],
+ [49.5,51.28,cal('D-14')],[51.82,53.6,img('titanium-device')],[53.6,END,emo('👍')]];
+const pick=(L,t)=>L.find(x=>t>=x[0]&&t<x[1]);
+const $=id=>document.getElementById(id);
+let cur={};
+function set(id,v){if(cur[id]!==v){$(id).innerHTML=v||'';cur[id]=v}}
+window.render=function(t){
+ const h=pick(HEAD,t); set('title',h?h[2]:'');
+ const s=pick(SUB,t);  set('sub',s?s.slice(2).map(l=>`<span class="sl">${l}</span>`).join(''):'');
+ document.querySelectorAll('#sub .sl').forEach(e=>{e.style.transform='';const w=e.getBoundingClientRect().width;if(w>1000)e.style.transform=`scale(${(1000/w).toFixed(3)})`;});
+ const g=pick(GFX,t);  set('gfx',g?g[2]:'');
+ return JSON.stringify([h&&h[0],s&&s[0]+'|'+s.length,g&&g[0]]);
+};
+</script></body></html>
