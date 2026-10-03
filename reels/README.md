@@ -64,4 +64,6 @@ D-14 · 2주 전: 티타늄
 3. `shotface.py <컷.mov> <컷.json> 1084 > shotoff.json` : 컷별 자막·그래픽 내림 값. `overlay5.html`의 `SHOTOFF`에 넣음
 4. `render2.cjs`(`OV=overlay5.html OD=ov node render2.cjs full 53.61`) : 오버레이 PNG를 30fps로. 글꼴은 `~/.fonts`의 Do Hyeon, Pretendard. 이미지는 `assets/`
 5. `qa.py <컷.mov> ov` : 얼굴 가림과 UI 영역 검사
-6. ffmpeg 합성: overlay → loudnorm -14 LUFS → libx264 BT.709 태그
+6. ffmpeg 합성: overlay → 소리(고역 통과 → 약한 압축 → loudnorm -14 LUFS → 리미터. 잡음 제거는 약한 자음을 깎아서 쓰지 않음) → libx264 BT.709 태그
+
+다른 영상: 이동훈 원장 쎄르프 설명 `donghun/xerf/` (같은 틀을 `build/tpl.html` + `render3.cjs`로 데이터만 바꿔 씀)
