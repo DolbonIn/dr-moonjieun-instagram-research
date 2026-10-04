@@ -10,14 +10,14 @@ W, H = 1080, 1920
 CAS = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
 
 
-def facemap(video):
-    p = subprocess.Popen(["ffmpeg", "-v", "error", "-i", video, "-vf", "fps=4,scale=540:960", "-f", "rawvideo", "-pix_fmt", "gray", "-"],
+def facemap(video, fps=4):
+    p = subprocess.Popen(["ffmpeg", "-v", "error", "-i", video, "-vf", f"fps={fps},scale=540:960", "-f", "rawvideo", "-pix_fmt", "gray", "-"],
                          stdout=subprocess.PIPE)
     rows, i = [], 0
     while len(b := p.stdout.read(540 * 960)) == 540 * 960:
         f = CAS.detectMultiScale(np.frombuffer(b, np.uint8).reshape(960, 540), 1.08, 6, minSize=(80, 80))
         if len(f):
-            x, y, w, h = max(f, key=lambda r: r[2] * r[3]); rows.append((i / 4, x * 2, y * 2, w * 2, h * 2))
+            x, y, w, h = max(f, key=lambda r: r[2] * r[3]); rows.append((i / fps, x * 2, y * 2, w * 2, h * 2))
         i += 1
     med = np.median([r[2] + r[4] for r in rows])
     return [r for r in rows if r[2] + r[4] < med + 60]       # 손·옷깃 오검출 제거
