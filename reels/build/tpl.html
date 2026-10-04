@@ -44,8 +44,8 @@ function cal(d,fs=172,head='WEDDING 💍'){return `<div class="card" style="padd
 // 숫자 카드: 위 띠(빨강) + 큰 숫자/짧은 말. 예) num('시술 간격','3~4주')
 function num(head,big,fs=150){return cal(big,fs,head)}
 // 체크리스트 카드: items 중 앞에서 n개를 진하게(말에 맞춰 하나씩). f를 주면 왼쪽에 장비 사진 카드를 함께
-function checks(items,n,f){const rows=items.map((x,i)=>`<div style="font:800 54px/1 Sub;color:${i<n?'#141414':'#d9d3cf'};padding:20px 2px;text-align:left;white-space:nowrap;${i<items.length-1?'border-bottom:2px solid #eee8e4':''}"><span style="color:${i<n?'#ff2b2b':'#d9d3cf'}">✓</span> ${x}</div>`).join('');
- const c=`<div class="card" style="width:372px;padding:8px 22px">${rows}</div>`; return f?`<div class="card two"><img src="${ASSET(f)}"></div>`+c:c}
+function checks(items,n,f,note){const rows=items.map((x,i)=>`<div style="font:800 54px/1 Sub;color:${i<n?'#141414':'#d9d3cf'};padding:20px 2px;text-align:left;white-space:nowrap;${i<items.length-1?'border-bottom:2px solid #eee8e4':''}"><span style="color:${i<n?'#ff2b2b':'#d9d3cf'}">✓</span> ${x}</div>`).join('');
+ const c=`<div class="card" style="width:372px;padding:8px 22px">${rows}${note?`<div style="font:700 30px/1.3 Sub;color:#6b6a69;padding:10px 0 6px;text-align:left">${note}</div>`:''}</div>`; return f?`<div class="card two"><img src="${ASSET(f)}"></div>`+c:c}
 // 얼굴 부위: areas ⊂ nasolabial(팔자) jaw(턱라인) chin(이중턱) forehead(이마) eyes(눈가) undereye(눈밑) cheek(볼) temple(관자) lips(입술) neck(목)
 function face(areas){const A=new Set(areas),R='#ff2b2b',on=k=>A.has(k)?R:'rgba(0,0,0,0)';
  return card(`<path d="M165 30 C95 30 70 90 72 150 C74 205 105 255 165 275 C225 255 256 205 258 150 C260 90 235 30 165 30Z" fill="#f6e3d6" stroke="#4a3b33" stroke-width="5"/>
