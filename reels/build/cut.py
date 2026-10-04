@@ -6,11 +6,11 @@ plan = {"src": "footage/x.mp4", "out": "x_cut.mov", "sil": "tr/x.sil",
         "zooms": [1.24, 1.32],             # 컷마다 번갈아 쓸 배율(원본 9:16 4K 기준, 1.0 = 화면의 75% 높이)
         "face_y": 0.40,                    # (선택) 얼굴 중심을 둘 높이(위에서 비율)
         "cover": [[x, y, w, h, "0x111111"]],  # (선택) 원본 좌표에서 칠해 가릴 사각형
-        "blur": [[x, y, w, h]],            # (선택) 원본 좌표에서 흐리게 할 사각형(상표 글자 등)
+        "blur": [[x, y, w, h, 반경]],      # (선택) 원본 좌표에서 흐리게 할 사각형(상표 글자 등). 반경 기본 22, 작은 로고는 5~6
         "zoom_list": [...]}                # (선택) 컷별 배율을 직접 지정. 원본이 이어지는 곳은 같은 배율로 두면 화면이 바뀌지 않음
 segs 안의 0.22초 넘는 쉼은 자동으로 걷어 내고, 그 자리가 컷이 된다. 결과 옆에 <out>.json(컷 목록) 저장.
 """
-import json, os, subprocess, sys
+import hashlib, json, os, subprocess, sys
 import cv2, numpy as np
 
 CAS = cv2.CascadeClassifier(cv2.data.haarcascades + "haarcascade_frontalface_default.xml")
@@ -78,12 +78,14 @@ def main():
         # cover: 원본 좌표 [x, y, w, h, 색] 사각형을 칠해 화면에 걸린 상표 등을 가림(삼각대 고정 촬영 기준)
         cov = "".join(f"drawbox=x={c[0]}:y={c[1]}:w={c[2]}:h={c[3]}:color={c[4]}:t=fill," for c in plan.get("cover", []))
         # blur: 원본 좌표 [x, y, w, h] 부분만 흐리게(검은 상자보다 자연스러움)
-        blr = "".join(f"split[m{k}][c{k}];[c{k}]crop={r[2]}:{r[3]}:{r[0]}:{r[1]},boxblur=22:3[b{k}];[m{k}][b{k}]overlay={r[0]}:{r[1]},"
+        blr = "".join(f"split[m{k}][c{k}];[c{k}]crop={r[2]}:{r[3]}:{r[0]}:{r[1]},boxblur={r[4] if len(r) > 4 else 22}:3[b{k}];[m{k}][b{k}]overlay={r[0]}:{r[1]},"
                       for k, r in enumerate(plan.get("blur", [])))
         vf = (f"{cov}{blr}crop={w}:{h}:{x}:{y},scale=1080:1920:flags=lanczos,fps=30,{tonemap(trc)}"
               "eq=contrast=1.03:saturation=1.03,unsharp=5:5:0.4,format=yuv420p")
         af = f"afade=t=in:d=0.015,afade=t=out:st={d - .025:.3f}:d=0.025,aresample=48000"
-        part = os.path.join(tmp, f"{i:02d}_{a:.2f}_{b:.2f}_{z}_{x}_{y}.mov")
+        # 캐시 이름에 가림·흐림 설정과 톤매핑까지 넣어, 설정을 바꾸면 다시 만들게 함
+        key = hashlib.md5((cov + blr + tonemap(trc)).encode()).hexdigest()[:6]
+        part = os.path.join(tmp, f"{i:02d}_{a:.2f}_{b:.2f}_{z}_{x}_{y}_{key}.mov")
         if not os.path.exists(part):
             subprocess.run(["ffmpeg", "-v", "error", "-y", "-ss", f"{a}", "-t", f"{d:.3f}", "-i", src, "-vf", vf, "-af", af, "-ac", "2",
                             "-c:v", "libx264", "-crf", "14", "-preset", "medium", "-color_primaries", "bt709", "-color_trc", "bt709",
